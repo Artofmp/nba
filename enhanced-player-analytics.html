@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NBA Crypto Pro – Player Analytics</title>
+  <style>
+    :root{--bg:#111;--card:#1a1a1a;--accent:#00ff88;--font:#fff;}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--font);}
+    header{display:flex;justify-content:space-between;align-items:center;padding:15px 25px;background:#000;}
+    header h1{margin:0;font-size:24px;}
+    #tierBadge{padding:6px 12px;border-radius:20px;font-size:14px;background:#444;}
+    .pro{background:var(--accent)!important;color:#000;}
+    .container{padding:30px;max-width:1200px;margin:auto;}
+    .card{background:var(--card);border-radius:12px;padding:20px;margin-bottom:20px;}
+    select,button{padding:10px 15px;font-size:16px;margin-top:10px;}
+    #qr canvas{margin-top:15px;}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📊 Player Analytics</h1>
+    <span id="tierBadge">FREE</span>
+  </header>
+
+  <div class="container">
+    <h2>Advanced Player Props (Pro Feature)</h2>
+    <div class="card">
+      <p id="props">🔒 Unlock with Pro to view AI-generated prop predictions.</p>
+      <select id="chain">
+        <option value="erc20">Ethereum (ERC-20)</option>
+        <option value="bep20">BSC (BEP-20)</option>
+        <option value="trc20">Tron (TRC-20)</option>
+        <option value="spl">Solana (SPL)</option>
+      </select><br>
+      <button onclick="genQR()">Generate 19 USDT QR</button>
+      <div id="qr"></div>
+    </div>
+
+    <div class="card">
+      <h3>Matchup Analysis</h3>
+      <p>🔒 Pro users see detailed head-to-head stats.</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script>
+    const ADDRESSES = {
+      erc20: '0xae10abaa803153489dee70da4a7679c1da2906d0',
+      bep20: '0xae10abaa803153489dee70da4a7679c1da2906d0',
+      trc20: 'TFGRg4us7h3eFF7oaddefAKnzPAXX5NQKC',
+      spl: '7GpjokVaV9vqKtzTQ1UqW8CxfA4cw8sNArfEv2ERvrPs'
+    };
+
+    function genQR() {
+      const chain = document.getElementById('chain').value;
+      const addr = ADDRESSES[chain];
+      const url = `${chain}:${addr}?amount=19&token=USDT&message=ProMembership`;
+      const qrDiv = document.getElementById('qr');
+      qrDiv.innerHTML = '';
+      QRCode.toCanvas(qrDiv, url, { width: 200 });
+    }
+  </script>
+</body>
+</html>
