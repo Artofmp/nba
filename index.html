@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NBA Crypto Pro</title>
+  <meta charset="utf-8" />
+  <style>
+    body { font-family: Arial; background: #111; color: #fff; text-align: center; padding: 50px; }
+    button { padding: 15px 30px; font-size: 20px; background: #00ff88; border: none; cursor: pointer; }
+    #qr { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>🏀 NBA Crypto Pro</h1>
+  <p>Unlock Pro picks with 19 USDT</p>
+
+  <select id="chain">
+    <option value="erc20">Ethereum (ERC-20)</option>
+    <option value="bep20">BSC (BEP-20)</option>
+    <option value="trc20">Tron (TRC-20)</option>
+    <option value="spl">Solana (SPL)</option>
+  </select>
+  <br><br>
+  <button onclick="makeQR()">Generate Payment QR</button>
+  <div id="qr"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script>
+    const ADDRESSES = {
+      erc20: '0xae10abaa803153489dee70da4a7679c1da2906d0',
+      bep20: '0xae10abaa803153489dee70da4a7679c1da2906d0',
+      trc20: 'TFGRg4us7h3eFF7oaddefAKnzPAXX5NQKC',
+      spl: '7GpjokVaV9vqKtzTQ1UqW8CxfA4cw8sNArfEv2ERvrPs'
+    };
+
+    function makeQR() {
+      const chain = document.getElementById('chain').value;
+      const addr = ADDRESSES[chain];
+      const url = `${chain}:${addr}?amount=19&token=USDT`;
+      QRCode.toCanvas(document.getElementById('qr'), url, { width: 200 });
+    }
+  </script>
+</body>
+</html>
